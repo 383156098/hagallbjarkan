@@ -55,9 +55,10 @@
 ### 设置颜色
 
 ```text
-        |                                block                                     |
-|modelId|port|   LEN   |       HSV       |     delay     |         fadeTime        | ...
-0      1    2          4         (LEN * 3) + 4     (LEN * 3) + 6             (LEN * 3) + 8
+                |                            block                                 ...   |
+                      |                   min block                              |   
+ modelId | port | len | start | end |   hsv   |      delay       |      fadeTime | ...
+ 0       1      2     4        5    6         9       12bit              12bit   12
 ```
 
 **modelId: 1 bytes**
@@ -66,10 +67,19 @@
 **port: 1 bytes**
   每个bit代表一个端口, 例如: 0000 0001 表示只控制端口 1。0000 0011 表示端口1和端口2同时控制。
   0x00，表示所有端口应用同一条命令。
-  
-**LEN: 2 byte**
+
+       
+**len: 2 byte**
+
+       len是block的数据长度，block的数量应该和port一致。
+       如果port是0x00，那么block只会存在一个，所有端口都应用这一个block的数据。
+       如果port不为0x00，那么block的数量应该和port是一致。
+       
   LEN的数量只能等于1或者等于控制端口数，如果LEN等于1 port等于0x00代表所有端口都应用同一条命令。
   LEN的值是代表有多少个HSV值，每个HSV代表一个灯珠地址。例如: 如果一条100灯珠的灯条，但我只想控制前10个灯珠的颜色，那么 LEN = 10 , HSV等长度等于10 \* 3。
+
+**start: 1 byte**
+       
   
 **HSV: 3 byte**
   (0x800000 &gt;&gt; 23) 等于0使用HSV，1使用CCT
