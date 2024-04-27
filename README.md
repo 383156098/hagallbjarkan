@@ -71,19 +71,20 @@
        
 **len: 2 byte**
 
-       len是block的数据长度，block的数量应该和port一致。
-       如果port是0x00，那么block只会存在一个，所有端口都应用这一个block的数据。
-       如果port不为0x00，那么block的数量应该和port是一致。
-       
-       len最坏的情况下可以控制8191个点(每个点颜色不一样情况下)
+len是block的数据长度，block的数量应该和port一致。
+如果port是0x00，那么block只会存在一个，所有端口都应用这一个block的数据。
+如果port不为0x00，那么block的数量应该和port是一致。
+
+len最坏的情况下可以控制8191个点(每个点颜色不一样情况下)
 
 **offset: 1byte 和 end: 1byte**
 
-       |0x01|0x0A|RED|
-       |0x00|0xFF|0x00|
-       |0x00|0xFF|0X00|
-       |0x00|0x01|BLUE|
-       offset 是偏移地址，end是实际地址地址偏移。第一个min block的end加上剩余的min block的offset和end算出真实需要控制的地址大小。
+|0x01|0x0A|RED|
+|0x00|0xFF|0x00|
+|0x00|0xFF|0X00|
+|0x00|0x01|BLUE|
+offset 是偏移地址，end是实际地址地址偏移。第一个min block的end加上剩余的min block的offset和end算出真实需要控制的地址大小。
+
        
        
 $$\sum^{x \to \infty}_{y \to 0}{\frac{x}{y}}$$
