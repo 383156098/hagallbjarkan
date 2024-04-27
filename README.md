@@ -86,7 +86,7 @@
        offset 是偏移地址，end是实际地址地址偏移。第一个min block的end加上剩余的min block的offset和end算出真实需要控制的地址大小。
        
        
-      $$\sum^{x \to \infty}_{y \to 0}{\frac{x}{y}}$$
+$$\sum^{x \to \infty}_{y \to 0}{\frac{x}{y}}$$
   
 **HSV: 3 byte**
   (0x800000 &gt;&gt; 23) 等于0使用HSV，1使用CCT
