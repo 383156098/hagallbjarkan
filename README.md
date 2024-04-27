@@ -57,8 +57,8 @@
 ```text
                 |                            block                                 ...   |
                       |                   min block                              |   
- modelId | port | len | start | end |   hsv   |      delay       |      fadeTime | ...
- 0       1      2     4        5    6         9       12bit              12bit   12
+ modelId | port | len | offset | end |   hsv   |      delay       |      fadeTime | ...
+ 0       1      2     4        5     6         9       12bit              12bit   12
 ```
 
 **modelId: 1 bytes**
@@ -75,11 +75,18 @@
        如果port是0x00，那么block只会存在一个，所有端口都应用这一个block的数据。
        如果port不为0x00，那么block的数量应该和port是一致。
        
-  LEN的数量只能等于1或者等于控制端口数，如果LEN等于1 port等于0x00代表所有端口都应用同一条命令。
-  LEN的值是代表有多少个HSV值，每个HSV代表一个灯珠地址。例如: 如果一条100灯珠的灯条，但我只想控制前10个灯珠的颜色，那么 LEN = 10 , HSV等长度等于10 \* 3。
+       len最坏的情况下可以控制8191个点(每个点颜色不一样情况下)
 
-**start: 1 byte**
+**offset: 1byte 和 end: 1byte**
+
+       |0x01|0x0A|RED|
+       |0x00|0xFF|0x00|
+       |0x00|0xFF|0X00|
+       |0x00|0x01|BLUE|
+       offset 是偏移地址，end是实际地址地址偏移。第一个min block的end加上剩余的min block的offset和end算出真实需要控制的地址大小。
        
+       
+      $$\sum^{x \to \infty}_{y \to 0}{\frac{x}{y}}$$
   
 **HSV: 3 byte**
   (0x800000 &gt;&gt; 23) 等于0使用HSV，1使用CCT
