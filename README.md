@@ -79,15 +79,19 @@ len最坏的情况下可以控制8191个点(每个点颜色不一样情况下)
 
 **offset: 1byte 和 end: 1byte**
 
-|0x01|0x0A|RED|
-|0x00|0xFF|0x00|
-|0x00|0xFF|0X00|
-|0x00|0x01|BLUE|
-offset 是偏移地址，end是实际地址地址偏移。第一个min block的end加上剩余的min block的offset和end算出真实需要控制的地址大小。
 
-       
-       
-$$\sum^{x \to \infty}_{y \to 0}{\frac{x}{y}}$$
+offset 是偏移地址，end是实际地址地址偏移。
+第一个min block的end加上剩余的min block的offset和end算出真实控制地址大小。
+N是min_block的块数, A是控制地址的大小.
+
+$$ A = \sum^{N}_{0}{offset_i + end_i}$$
+
+例子:
+
+       |0x01|0x0A|RED|
+       |0x00|0xFF|0x00|
+       |0x00|0xFF|0X00|
+       |0x00|0x01|BLUE|
   
 **HSV: 3 byte**
   (0x800000 &gt;&gt; 23) 等于0使用HSV，1使用CCT
