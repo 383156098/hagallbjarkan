@@ -79,9 +79,10 @@ len最坏的情况下可以控制8191个点(每个点颜色不一样情况下)
 
 **offset: 1byte 和 end: 1byte**
 
+offset 是偏移地址，end 偏移地址的结束。偏移地址不可以超过255，如果超过255需要补上一个0x00FF000000000000的min block作为填充才能计算出真实的控制地址。
 
-offset 是偏移地址，end是实际地址地址偏移。
-第一个min block的end加上剩余的min block的offset和end算出真实控制地址大小。
+计算证书控制地址只需要将所有的offset和end相加求和就能够给出 如下：
+
 N是min_block的块数, A是控制地址的大小.
 
 $$ A = \sum^{N}_{0}{offset_i + end_i}$$
