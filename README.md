@@ -117,3 +117,16 @@ V = (HSV[0] & 0x7F) / 100
   
 **fadeTime: 2 bytes**
   从当前颜色到指定颜色的渐变时间，65535 * fadeTimeSlice (ms) 最小渐变时间为0，最长可以渐变 2.7小时，渐变的最小粒度为 fadeTimeSlice ms。
+
+
+### 内置模式设置
+
+
+```text
+                |                            block                                 ...   |
+                |       min block         |   
+ modelId | port | start |  end |  modelId |...
+ 0       1      2       4      6          7
+```
+
+内置模式设置，一条命令只能设置一个端口，不同一条命令同时设置多个端口，如果需要设置多个端口需要发送多条内置模式设置命令。
