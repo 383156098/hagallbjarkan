@@ -100,7 +100,7 @@ N是min_block的块数, A是控制地址的大小.
 
        
   
-**HSV: 3 byte**
+**HSV: 3bytes**
 
 (0x800000 &gt;&gt; 23) 等于0使用HSV，1使用CCT
   
@@ -112,10 +112,10 @@ V = (HSV[0] & 0x7F) / 100
 
   
   
-**delay: 2 bytes**
+**delay: 2bytes**
   接收到命令之后的延时执行时间, 65535 * delaySlice (ms) 最小延时时间为0，最大延时时间2.7小时左右，延时的最小粒度为 delaySlice ms。
   
-**fadeTime: 2 bytes**
+**fadeTime: 2bytes**
   从当前颜色到指定颜色的渐变时间，65535 * fadeTimeSlice (ms) 最小渐变时间为0，最长可以渐变 2.7小时，渐变的最小粒度为 fadeTimeSlice ms。
 
 
@@ -123,10 +123,20 @@ V = (HSV[0] & 0x7F) / 100
 
 
 ```text
-                |                            block                                 ...   |
+                |                            block        ...   |
                 |       min block         |   
  modelId | port | start |  end |  modelId |...
  0       1      2       4      6          7
 ```
 
-内置模式设置，一条命令只能设置一个端口，不同一条命令同时设置多个端口，如果需要设置多个端口需要发送多条内置模式设置命令。
+**modelId: 1byte**
+  0x12      
+
+**port: 1byte**
+
+  0000 0011，代表端口1和端口2都设置block内置模式。
+  0x00，表示所有端口应用同一条命令。
+
+**start: 2bytes 和 end: 2bytes**
+
+start~end地址应用内置模式modelId。
