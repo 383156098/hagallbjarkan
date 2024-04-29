@@ -141,4 +141,4 @@ V = (HSV[0] & 0x7F) / 100
 
 一个block里面有 len(block) / 3 个min block。
 
-min block 里面包含了start、end、modelId。
+min block 里面包含了start(起始地址)、end(结束地址)、modelId(内置模式)。
