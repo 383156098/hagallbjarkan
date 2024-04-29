@@ -142,3 +142,37 @@ V = (HSV[0] & 0x7F) / 100
 一个block里面有 len(block) / 3 个min block。
 
 min block 里面包含了start(起始地址)、end(结束地址)、modelId(内置模式)。
+
+### 事件设置
+
+```text
+                             
+|modelId|event_id|event_type|command
+0       1        5          6       N          
+```
+
+**modelId: 1byte**
+  0x13
+
+**event_id: 4bytes**
+
+  事件ID，每个事件都是唯一的，后面扩展用。
+
+**event_type: 1byte**
+
+  事件类型，有0~255的事件类型，目前只有0，定时事件。
+
+**command: n bytes**
+
+  事件类型0的command格式如下:
+
+  modelId|event_id|0|0000 0000|0x01FFFF|order|
+
+  0000 0000: 一个byte作为定时周期，如果0x80是否重复，0xF7代表周一到周七，其中哪几天执行定时。
+
+  0x01FFFF: 24小时的秒数。
+
+  order: 执行指令，例如: **设置开关和亮度**，**设置颜色**，**内置模式设置**
+
+
+  
