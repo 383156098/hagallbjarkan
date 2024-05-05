@@ -124,9 +124,9 @@ V = (HSV[0] & 0x7F) / 100
 
 ```text
                 |                            block        ...   |
-                |       min block         |   
- modelId | port | start |  end |  modelId |...
- 0       1      2       4      6          7
+                |                 min block               |   
+ modelId | port | start |  end |  modelId |speed|brightess|...
+ 0       1      2       4      6          7     8         9
 ```
 
 **modelId: 1byte**
@@ -142,6 +142,14 @@ V = (HSV[0] & 0x7F) / 100
 一个block里面有 len(block) / 3 个min block。
 
 min block 里面包含了start(起始地址)、end(结束地址)、modelId(内置模式)。
+
+**speed: 1byte**
+
+内置模式速度
+
+**brightness: 1byte**
+
+内置模式亮度
 
 ### 事件设置
 
